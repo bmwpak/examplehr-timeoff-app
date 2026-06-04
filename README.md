@@ -6,6 +6,14 @@ This application simulates real-world asynchronous HR integrations where a core 
 
 ---
 
+## Live Links
+
+- Repository: https://github.com/bmwpak/examplehr-timeoff-app
+- Application: https://examplehr-timeoff-app.vercel.app/
+- Storybook: https://examplehr-timeoff-storybook.vercel.app/
+
+---
+
 ## Architecture & Reliability Model
 
 ### 1. Asynchronous Submission & Optimistic Updates
