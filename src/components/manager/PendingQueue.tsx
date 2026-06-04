@@ -68,7 +68,7 @@ function ResolvedCard({ request }: { request: TimeOffRequest }) {
           </p>
           {request.reason && (
             <p className="text-xs italic text-zinc-400 dark:text-zinc-500 truncate mt-0.5">
-              "{request.reason}"
+              &quot;{request.reason}&quot;
             </p>
           )}
         </div>

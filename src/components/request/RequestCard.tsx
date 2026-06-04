@@ -100,7 +100,7 @@ export default function RequestCard({ request }: RequestCardProps) {
 
         <div className="flex items-start gap-2 text-sm text-zinc-650 dark:text-zinc-300">
           <FileText className="h-4 w-4 mt-0.5 text-zinc-400 flex-shrink-0" />
-          <span className="italic">"{request.reason || 'No reason provided'}"</span>
+          <span className="italic">&quot;{request.reason || 'No reason provided'}&quot;</span>
         </div>
 
         <div className="text-xs text-zinc-450 dark:text-zinc-500">

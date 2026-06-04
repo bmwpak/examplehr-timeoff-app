@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchBalance } from '@/lib/hcm-client';
-import { QUERY_KEYS, BALANCE_STALE_TIME, BALANCE_GC_TIME, STALE_THRESHOLD_MS } from '@/lib/constants';
+import { QUERY_KEYS, BALANCE_STALE_TIME, BALANCE_GC_TIME } from '@/lib/constants';
 
 export function useBalance(employeeId: string, locationId: string) {
   const query = useQuery({
@@ -11,8 +11,9 @@ export function useBalance(employeeId: string, locationId: string) {
     retry: 2,
   });
 
-  const isStale = query.dataUpdatedAt > 0
-    && Date.now() - query.dataUpdatedAt > STALE_THRESHOLD_MS;
+  // TanStack Query's dataUpdatedAt changes on refetch, which triggers re-render.
+  // We derive staleness from the query's own stale flag to avoid impure Date.now() in render.
+  const isStale = query.isStale && query.dataUpdatedAt > 0;
 
   return {
     balance: query.data ?? null,
@@ -23,3 +24,4 @@ export function useBalance(employeeId: string, locationId: string) {
     refetch: query.refetch,
   };
 }
+

@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import { useBalance } from '@/hooks/useBalance';
 import { useReconciliation } from '@/hooks/useReconciliation';
 import BalanceGrid from '@/components/balance/BalanceGrid';
@@ -9,7 +10,7 @@ import RequestHistory from '@/components/request/RequestHistory';
 import SessionBanner from '@/components/shared/SessionBanner';
 import OfflineIndicator from '@/components/shared/OfflineIndicator';
 import { Home, User, Info, HelpCircle } from 'lucide-react';
-import { LOCATIONS } from '@/lib/constants';
+
 
 export default function EmployeeDashboard() {
   const employeeId = 'emp-001';
@@ -35,9 +36,9 @@ export default function EmployeeDashboard() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-zinc-200 pb-5 dark:border-zinc-800">
         <div className="space-y-1">
           <div className="flex items-center gap-2 text-xs font-semibold text-zinc-500 dark:text-zinc-400">
-            <a href="/" className="hover:text-zinc-800 dark:hover:text-white flex items-center gap-1">
+            <Link href="/" className="hover:text-zinc-800 dark:hover:text-white flex items-center gap-1">
               <Home className="h-3 w-3" /> Home
-            </a>
+            </Link>
             <span>/</span>
             <span className="text-zinc-800 dark:text-white flex items-center gap-1">
               <User className="h-3 w-3" /> Employee Dashboard
@@ -72,7 +73,7 @@ export default function EmployeeDashboard() {
       <div className="p-4 rounded-xl border border-zinc-200 bg-zinc-50/50 text-xs text-zinc-600 dark:border-zinc-850 dark:bg-zinc-900/30 dark:text-zinc-400 flex items-start gap-2.5 leading-relaxed">
         <Info className="h-4.5 w-4.5 text-zinc-500 mt-0.5 flex-shrink-0" />
         <div>
-          <span className="font-bold text-zinc-800 dark:text-zinc-200">How this works:</span> Clicking the "Submit Request" button deducts the balance instantly from the UI view (optimistic update). The system sends the request to the HCM API. If the API succeeds, the balance remains deducted. If it fails, the local balance is rolled back. Background synchronization checks for updates every 30 seconds.
+          <span className="font-bold text-zinc-800 dark:text-zinc-200">How this works:</span> Clicking the &quot;Submit Request&quot; button deducts the balance instantly from the UI view (optimistic update). The system sends the request to the HCM API. If the API succeeds, the balance remains deducted. If it fails, the local balance is rolled back. Background synchronization checks for updates every 30 seconds.
         </div>
       </div>
 
@@ -117,7 +118,7 @@ export default function EmployeeDashboard() {
               <div className="space-y-1">
                 <h4 className="font-bold text-zinc-800 dark:text-zinc-200">What is a conflict?</h4>
                 <p className="leading-relaxed">
-                  If the server's balance changes externally (e.g. anniversary bonus) while you have an in-flight request, a conflict is detected. The system blocks further requests for that location until resolved.
+                  If the server&apos;s balance changes externally (e.g. anniversary bonus) while you have an in-flight request, a conflict is detected. The system blocks further requests for that location until resolved.
                 </p>
               </div>
             </div>

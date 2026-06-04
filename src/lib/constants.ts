@@ -32,3 +32,6 @@ export const LOCATIONS: Record<string, string> = {
   'LOC-NY': 'New York',
   'LOC-SF': 'San Francisco',
 };
+
+export const DEMO_EMPLOYEE_ID = 'emp-001';
+export const DEMO_MANAGER_ID = 'mgr-001';

@@ -30,9 +30,12 @@ export default function BalanceCell({
 
   useEffect(() => {
     if (wasRolledBack) {
-      setFlash(true);
+      const startTimer = setTimeout(() => setFlash(true), 0);
       const timer = setTimeout(() => setFlash(false), 2000);
-      return () => clearTimeout(timer);
+      return () => {
+        clearTimeout(startTimer);
+        clearTimeout(timer);
+      };
     }
   }, [wasRolledBack]);
 

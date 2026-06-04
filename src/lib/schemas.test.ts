@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { BalanceSchema, RequestSchema, safeParseHCM } from './schemas';
+import { BalanceSchema, safeParseHCM } from './schemas';
 
 describe('Validation Schemas', () => {
   describe('BalanceSchema', () => {

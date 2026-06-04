@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import RequestForm from './RequestForm';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect } from 'storybook/test';
+import RequestForm from '@/components/request/RequestForm';
 
 const meta = {
   title: 'Request/RequestForm',
@@ -19,6 +20,9 @@ export const Default: Story = {
     locationId: 'LOC-NY',
     availableBalance: 10,
   },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement).toBeInTheDocument();
+  },
 };
 
 export const LowBalance: Story = {
@@ -27,6 +31,9 @@ export const LowBalance: Story = {
     locationId: 'LOC-NY',
     availableBalance: 1,
   },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement).toBeInTheDocument();
+  },
 };
 
 export const EmptyBalance: Story = {
@@ -34,5 +41,8 @@ export const EmptyBalance: Story = {
     employeeId: 'emp-001',
     locationId: 'LOC-NY',
     availableBalance: 0,
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement).toBeInTheDocument();
   },
 };

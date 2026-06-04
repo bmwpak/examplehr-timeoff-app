@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Link from "next/link";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -33,17 +34,17 @@ export default function RootLayout({
         <Providers>
           <header className="border-b border-zinc-200 bg-white/80 backdrop-blur-md sticky top-0 z-40 dark:border-zinc-800 dark:bg-zinc-900/80">
             <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-              <a href="/" className="font-extrabold text-lg text-zinc-900 dark:text-white flex items-center gap-1.5 hover:opacity-85 transition-opacity">
+              <Link href="/" className="font-extrabold text-lg text-zinc-900 dark:text-white flex items-center gap-1.5 hover:opacity-85 transition-opacity">
                 <span>ExampleHR</span>
                 <span className="text-zinc-500 font-medium">Time-Off</span>
-              </a>
+              </Link>
               <nav className="flex items-center gap-4 text-sm font-semibold text-zinc-650 dark:text-zinc-300">
-                <a href="/employee" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
+                <Link href="/employee" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                   Employee View
-                </a>
-                <a href="/manager" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
+                </Link>
+                <Link href="/manager" className="hover:text-zinc-900 dark:hover:text-white transition-colors">
                   Manager View
-                </a>
+                </Link>
               </nav>
             </div>
           </header>

@@ -1,8 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { User, ClipboardList, Settings, Sliders, Wifi, WifiOff, Clock, AlertOctagon, Sparkles, Loader2, ArrowRight } from 'lucide-react';
+import { User, ClipboardList, Settings, Sliders, WifiOff, Clock, AlertOctagon, Sparkles, Loader2, ArrowRight } from 'lucide-react';
 import clsx from 'clsx';
 
 interface SimulatorConfig {
@@ -74,7 +73,7 @@ export default function LandingPage() {
       } else {
         setAnniversaryStatus(`Error: ${data.error || 'Failed'}`);
       }
-    } catch (e) {
+    } catch {
       setAnniversaryStatus('Network error trigger bonus');
     } finally {
       setAnniversaryLoading(false);

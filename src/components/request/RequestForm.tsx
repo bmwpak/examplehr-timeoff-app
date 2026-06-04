@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useSubmitRequest } from '@/hooks/useSubmitRequest';
 import { useSessionStore } from '@/store/session';
@@ -16,13 +16,12 @@ import {
   startOfMonth,
   endOfMonth,
   eachDayOfInterval,
-  isSameDay,
   startOfWeek,
   endOfWeek,
   isToday,
   isSameMonth,
 } from 'date-fns';
-import { Calendar, ChevronLeft, ChevronRight, Loader2, Send, Lock, Circle } from 'lucide-react';
+import { Calendar, ChevronLeft, ChevronRight, Loader2, Send, Lock } from 'lucide-react';
 import clsx from 'clsx';
 import { LOCATIONS, QUERY_KEYS } from '@/lib/constants';
 import type { TimeOffRequest } from '@/types';
@@ -109,16 +108,19 @@ export default function RequestForm({
     [existingRequests, locationId]
   );
 
-  // Reset form when location changes
-  useEffect(() => {
+  const [prevLocationId, setPrevLocationId] = useState(locationId);
+  if (locationId !== prevLocationId) {
+    setPrevLocationId(locationId);
     setStartDate('');
     setEndDate('');
     setFormError(null);
-  }, [locationId]);
+  }
 
-  useEffect(() => {
+  const [prevDates, setPrevDates] = useState({ startDate, endDate });
+  if (startDate !== prevDates.startDate || endDate !== prevDates.endDate) {
+    setPrevDates({ startDate, endDate });
     setFormError(null);
-  }, [startDate, endDate]);
+  }
 
   const daysRequested = useMemo(() => {
     if (!startDate || !endDate) return 0;

@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import RequestReviewCard from './RequestReviewCard';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect } from 'storybook/test';
+import RequestReviewCard from '@/components/manager/RequestReviewCard';
 
 const meta = {
   title: 'Manager/RequestReviewCard',
@@ -27,6 +28,9 @@ export const Default: Story = {
       submittedAt: new Date().toISOString(),
     },
   },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement).toBeInTheDocument();
+  },
 };
 
 export const MultiDay: Story = {
@@ -42,5 +46,8 @@ export const MultiDay: Story = {
       status: 'pending',
       submittedAt: new Date(Date.now() - 3600_000).toISOString(),
     },
+  },
+  play: async ({ canvasElement }) => {
+    await expect(canvasElement).toBeInTheDocument();
   },
 };

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AlertTriangle,
   Clock,
@@ -36,22 +36,27 @@ export default function SimulatorStatusBar() {
   const setHCMReachable = useSessionStore((s) => s.setHCMReachable);
   const clearAllOptimistic = useOptimisticStore((s) => s.clearAll);
 
-  const fetchConfig = useCallback(async () => {
-    try {
-      const res = await fetch('/api/hcm/simulate/config');
-      const data = await res.json();
-      if (data.config) setConfig(data.config);
-    } catch {
-      // silently ignore — if we can't reach config endpoint it's fine
-    }
-  }, []);
-
   useEffect(() => {
+    let cancelled = false;
+
+    async function fetchConfig() {
+      try {
+        const res = await fetch('/api/hcm/simulate/config');
+        const data = await res.json();
+        if (!cancelled && data.config) setConfig(data.config);
+      } catch {
+        // silently ignore — if we can't reach config endpoint it's fine
+      }
+    }
+
     fetchConfig();
     // Poll every 10s to stay in sync with changes from the home page
     const interval = setInterval(fetchConfig, 10_000);
-    return () => clearInterval(interval);
-  }, [fetchConfig]);
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
+  }, []);
 
   const handleReset = async () => {
     setResetting(true);

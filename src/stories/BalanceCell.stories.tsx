@@ -1,5 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import BalanceCell from './BalanceCell';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { expect, within } from 'storybook/test';
+import BalanceCell from '@/components/balance/BalanceCell';
 
 const meta = {
   title: 'Balance/BalanceCell',
@@ -27,6 +28,11 @@ export const Default: Story = {
     wasRolledBack: false,
     lastVerifiedAt: Date.now(),
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const balanceText = canvas.getByText('10');
+    await expect(balanceText).toBeInTheDocument();
+  },
 };
 
 export const Loading: Story = {
@@ -37,6 +43,9 @@ export const Loading: Story = {
     isOptimisticPending: false,
     wasRolledBack: false,
     lastVerifiedAt: null,
+  },
+  play: async ({ canvasElement }) => {
+    expect(canvasElement).toBeInTheDocument();
   },
 };
 
@@ -54,6 +63,11 @@ export const OptimisticPending: Story = {
     wasRolledBack: false,
     lastVerifiedAt: Date.now() - 30_000,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const badge = canvas.getByText('Pending confirmation');
+    await expect(badge).toBeInTheDocument();
+  },
 };
 
 export const Stale: Story = {
@@ -70,6 +84,11 @@ export const Stale: Story = {
     wasRolledBack: false,
     lastVerifiedAt: Date.now() - 150_000,
   },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const staleText = canvas.getByText(/Updated/i);
+    await expect(staleText).toBeInTheDocument();
+  },
 };
 
 export const RolledBack: Story = {
@@ -85,5 +104,10 @@ export const RolledBack: Story = {
     isOptimisticPending: false,
     wasRolledBack: true,
     lastVerifiedAt: Date.now(),
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const rollbackText = canvas.getByText(/rejected/i);
+    await expect(rollbackText).toBeInTheDocument();
   },
 };

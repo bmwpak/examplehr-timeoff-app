@@ -87,7 +87,7 @@ export default function RequestReviewCard({ request }: RequestReviewCardProps) {
       {/* Reason */}
       <div className="flex items-start gap-2 bg-zinc-50 p-3 rounded-lg dark:bg-zinc-850/50 text-sm text-zinc-700 dark:text-zinc-300">
         <FileText className="h-4.5 w-4.5 text-zinc-400 mt-0.5 flex-shrink-0" />
-        <span className="italic">"{request.reason || 'No reason provided'}"</span>
+        <span className="italic">&quot;{request.reason || 'No reason provided'}&quot;</span>
       </div>
 
       {/* Balance Verification Section */}

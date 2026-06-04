@@ -76,3 +76,22 @@ export function hasInFlightMutation(
     o => o.employeeId === employeeId && o.locationId === locationId
   );
 }
+
+/**
+ * Calculates number of working days between two ISO date strings.
+ * Excludes weekends. Simple approximation for demo purposes.
+ */
+export function calculateWorkingDays(startDate: string, endDate: string): number {
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  let count = 0;
+  const current = new Date(start);
+
+  while (current <= end) {
+    const day = current.getDay();
+    if (day !== 0 && day !== 6) count++;
+    current.setDate(current.getDate() + 1);
+  }
+
+  return count;
+}
