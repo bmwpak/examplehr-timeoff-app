@@ -2,6 +2,14 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { approveRequest, fetchBalance } from '@/lib/hcm-client';
 import { QUERY_KEYS } from '@/lib/constants';
 
+interface ApproveParams {
+  requestId: string;
+  employeeId: string;
+  locationId: string;
+  daysRequested: number;
+  balanceDeducted?: boolean;
+}
+
 export function useApproveRequest() {
   const queryClient = useQueryClient();
 
@@ -11,16 +19,16 @@ export function useApproveRequest() {
       employeeId,
       locationId,
       daysRequested,
-    }: {
-      requestId: string;
-      employeeId: string;
-      locationId: string;
-      daysRequested: number;
-    }) => {
-      // ALWAYS verify balance before approval — no optimistic update
-      const currentBalance = await fetchBalance(employeeId, locationId);
-      if (currentBalance.available < daysRequested) {
-        throw new Error('INSUFFICIENT_BALANCE_AT_APPROVAL');
+      balanceDeducted,
+    }: ApproveParams) => {
+      // If balance was already deducted during submission, skip the pre-check
+      // to avoid a false INSUFFICIENT_BALANCE error. If not yet deducted
+      // (conflict mode was active at submission time), verify now.
+      if (!balanceDeducted) {
+        const currentBalance = await fetchBalance(employeeId, locationId);
+        if (currentBalance.available < daysRequested) {
+          throw new Error('INSUFFICIENT_BALANCE_AT_APPROVAL');
+        }
       }
       await approveRequest(requestId);
       return { employeeId, locationId };

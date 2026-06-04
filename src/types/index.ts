@@ -20,6 +20,7 @@ export interface TimeOffRequest {
   status: RequestStatus;
   submittedAt: string;
   resolvedAt?: string;
+  balanceDeducted?: boolean;
 }
 
 export type RequestStatus =

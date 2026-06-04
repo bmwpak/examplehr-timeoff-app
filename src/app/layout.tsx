@@ -50,7 +50,7 @@ export default function RootLayout({
           <main className="flex-grow px-4 py-8 max-w-6xl mx-auto w-full">
             {children}
           </main>
-          <footer className="border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900 py-6 text-center text-xs text-zinc-450 dark:text-zinc-500">
+          <footer className="border-t border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-900 py-6 text-center text-xs text-zinc-450 dark:text-zinc-505 pb-16">
             <div className="max-w-6xl mx-auto px-4">
               &copy; {new Date().getFullYear()} ExampleHR Inc. All rights reserved. Time-Off Simulator.
             </div>

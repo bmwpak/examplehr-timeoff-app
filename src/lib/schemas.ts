@@ -20,6 +20,7 @@ export const RequestSchema = z.object({
   status: z.enum(['pending', 'approved', 'denied']),
   submittedAt: z.string().datetime(),
   resolvedAt: z.string().datetime().optional(),
+  balanceDeducted: z.boolean().optional(),
 });
 
 export const SubmitResponseSchema = z.object({

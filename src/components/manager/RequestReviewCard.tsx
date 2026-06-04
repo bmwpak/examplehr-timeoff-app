@@ -27,7 +27,9 @@ export default function RequestReviewCard({ request }: RequestReviewCardProps) {
   const denyMutation = useDenyRequest();
 
   const locationName = LOCATIONS[request.locationId] ?? request.locationId;
-  const isInsufficient = balance !== null && balance.available < request.daysRequested;
+  // When balance was already deducted at submission time the current HCM balance
+  // has already had those days removed, so we must NOT flag it as insufficient.
+  const isInsufficient = balance !== null && !request.balanceDeducted && balance.available < request.daysRequested;
 
   const handleApprove = () => {
     approveMutation.mutate({
@@ -35,6 +37,7 @@ export default function RequestReviewCard({ request }: RequestReviewCardProps) {
       employeeId: request.employeeId,
       locationId: request.locationId,
       daysRequested: request.daysRequested,
+      balanceDeducted: request.balanceDeducted,
     });
   };
 

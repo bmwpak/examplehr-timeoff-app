@@ -53,6 +53,7 @@ export async function POST(req: NextRequest) {
     reason,
     status: 'pending' as const,
     submittedAt: new Date().toISOString(),
+    balanceDeducted: !hcmState.config.conflictMode,
   };
 
   hcmState.requests.push(request);
